@@ -171,13 +171,19 @@ MODEL_TASK_EVALUATION_MAP = {
         EvalAlgorithm.QA_TOXICITY,
         EvalAlgorithm.QA_ACCURACY,
         EvalAlgorithm.QA_ACCURACY_SEMANTIC_ROBUSTNESS,
+        # EvalAlgorithm.QA_RAGAS, # faithfulness?, answer_correctness, answer_relevance, answer_similarity
     ],
     ModelTask.SUMMARIZATION: [
         EvalAlgorithm.SUMMARIZATION_TOXICITY,
         EvalAlgorithm.SUMMARIZATION_ACCURACY,
         EvalAlgorithm.SUMMARIZATION_ACCURACY_SEMANTIC_ROBUSTNESS,
+        # EvalAlgorithm.SUMMARIZATION_RAG, # metrics: Faithfulness
     ],
+    # ModelTask.CONTEXTS: {
+    #     EvalAlgorithm.CONTEXT_QUALITY,  # metrics: context_precision, context_relevancy,  context_recall
+    # },
 }
+
 
 # Constants for Built-in dataset names
 TREX = "trex"

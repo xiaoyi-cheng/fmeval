@@ -187,12 +187,12 @@ class JsonParser:
                 f"Found no values using {args.column.value.name} JMESPath '{args.jmespath_parser.expression}' "
                 f"on dataset `{args.dataset_name}`.",
             )
-            require(
-                not isinstance(result, list),
-                f"Expected to find a single value using {args.column.value.name} JMESPath "
-                f"'{args.jmespath_parser.expression}' on a dataset line in "
-                f"dataset `{args.dataset_name}`, but found a list instead.",
-            )
+            # require(
+            #     not isinstance(result, list),
+            #     f"Expected to find a single value using {args.column.value.name} JMESPath "
+            #     f"'{args.jmespath_parser.expression}' on a dataset line in "
+            #     f"dataset `{args.dataset_name}`, but found a list instead.",
+            # )
         else:  # pragma: no cover
             raise EvalAlgorithmInternalError(
                 f"args.dataset_mime_type is {args.dataset_mime_type}, but only JSON " "and JSON Lines are supported."
