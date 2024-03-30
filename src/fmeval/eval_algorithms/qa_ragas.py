@@ -46,7 +46,7 @@ class RagasFaithfulness(EvalAlgorithmInterface):
         # save: bool = False,
         num_records=100,
         llm: Optional[BaseRagasLLM] = None,
-        embeddings: Optional[BaseRagasEmbeddings] = None
+        embeddings: Optional[BaseRagasEmbeddings] = None,
     ) -> List[EvalOutput]:
         """
         Ragas Faithfulness evaluate
@@ -62,7 +62,7 @@ class RagasFaithfulness(EvalAlgorithmInterface):
                     model_input_location="question",
                     model_output_location="answer",
                     contexts_location="contexts",
-                    target_output_location="ground_truths"
+                    target_output_location="ground_truths",
                 )
             ]
 
@@ -81,17 +81,10 @@ class RagasFaithfulness(EvalAlgorithmInterface):
             ]
             with timed_block(f"Computing score and aggregation on dataset {dataset_config.dataset_name}", logger):
 
-                result = ragas_evaluate(
-                    hf_dataset,
-                    metrics=metrics,
-                    llm=llm,
-                    embeddings=embeddings
-                )
+                result = ragas_evaluate(hf_dataset, metrics=metrics, llm=llm, embeddings=embeddings)
 
                 scores = result.copy()
-                dataset_scores = [
-                    EvalScore(name=k, value=v) for k, v in scores.items()
-                ]
+                dataset_scores = [EvalScore(name=k, value=v) for k, v in scores.items()]
 
                 eval_outputs.append(
                     EvalOutput(
@@ -108,7 +101,14 @@ class RagasFaithfulness(EvalAlgorithmInterface):
 
         return eval_outputs
 
-    def evaluate_sample(self, question: str, answer: str, contexts: List[str], llm, embeddings) -> List[EvalScore]:  # type: ignore[override]
+    def evaluate_sample(
+        self,
+        question: str,
+        answer: str,
+        contexts: List[str],
+        llm: Optional[BaseRagasLLM] = None,
+        embeddings: Optional[BaseRagasEmbeddings] = None,
+    ) -> List[EvalScore]:  # type: ignore[override]
         """
         Evaluate a single record.
         """
@@ -125,11 +125,9 @@ class RagasFaithfulness(EvalAlgorithmInterface):
         if embeddings is None:
             embeddings = get_bedrock_embedding()
 
-        hf_ds = Dataset.from_dict({
-            'question': [question],
-            'answer': [answer],
-            'contexts': [[context] for context in contexts]
-        })
+        hf_ds = Dataset.from_dict(
+            {"question": [question], "answer": [answer], "contexts": [[context] for context in contexts]}
+        )
         result = ragas_evaluate(
             hf_ds,
             metrics=[faithfulness],
@@ -137,6 +135,4 @@ class RagasFaithfulness(EvalAlgorithmInterface):
             embeddings=embeddings,
         )
         scores = result.copy()
-        return [
-            EvalScore(name=k, value=v) for k, v in scores.items()
-        ]
+        return [EvalScore(name=k, value=v) for k, v in scores.items()]

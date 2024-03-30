@@ -12,17 +12,13 @@ BEDROCK_MODEL_ID_EMBEDDINGS = "amazon.titan-embed-text-v1"
 
 def get_bedrock_model(model_id: Optional[str] = BEDROCK_MODEL_ID_DEFAULT) -> BedrockChat:
     client = get_bedrock_runtime_client()
-    return BedrockChat(
-        model_id=model_id,
-        model_kwargs={"temperature": 0.1},
-        client=client
-    )
+    return BedrockChat(model_id=model_id, model_kwargs={"temperature": 0.1}, client=client)
 
 
 def get_bedrock_embedding(model_id: Optional[str] = BEDROCK_MODEL_ID_EMBEDDINGS) -> BedrockEmbeddings:
     client = get_bedrock_runtime_client()
     return BedrockEmbeddings(
-        model_id=model_id ,
+        model_id=model_id,
         client=client,
     )
 

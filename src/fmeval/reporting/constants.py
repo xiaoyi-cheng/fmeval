@@ -166,6 +166,8 @@ FACTUAL_KNOWLEDGE_TABLE_DESCRIPTION = "Below are a few examples of correct and i
 
 # Score descriptions for the report
 SCORE_DESCRIPTIONS = {
+    # Faithfulness
+    "faithfulness": "A faithfulness score measures the factual consistency of the generated answer against the given context. It is calculated from answer and retrieved context. The answer is scaled to (0,1) range. Higher the better.",
     # Factual knowledge
     FACTUAL_KNOWLEDGE: "A factual knowledge score is a value between 0 and 1, indicating the percentage of correctly retrieved real-world facts across different knowledge categories.",
     # Prompt stereotyping

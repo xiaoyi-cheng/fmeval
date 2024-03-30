@@ -10,7 +10,8 @@ def convert_ray_dataset_to_hf(dataset: ray.data.Dataset) -> datasets.Dataset:
                 "model_input": "question",
                 "model_output": "answer",
                 "context": "contexts",
-                "target_output": "ground_truth"}  # OSS ragas use ground_truth, RagasBedrock use ground_truths
+                "target_output": "ground_truth",
+            }  # OSS ragas use ground_truth, RagasBedrock use ground_truths
         )
     )
 
